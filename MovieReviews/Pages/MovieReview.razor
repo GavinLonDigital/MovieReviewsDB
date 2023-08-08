@@ -1,0 +1,47 @@
+﻿@page "/MovieReview/{Id}"
+@attribute [StreamRendering(true)]
+@* @attribute [RenderModeServer] *@
+@using MovieReviews.Services;
+@using MovieReviews.Models;
+@inject IMovieReviewService MovieReviewService
+
+<h3>Movie Review for @MovieItem?.Title</h3>
+
+@if(MovieItem == null)
+{
+    <h1>Loading...</h1>   
+}
+else
+{
+    <div class="row">
+        <div class="col-6">
+             <img style="width:100%" src="@MovieItem?.ImageUrl" alt="@MovieItem?.Title"/>
+        </div>
+        <div class="col-6">
+            @MovieItem?.Review
+        </div>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public string? Id { get; set; }
+
+    private Movie? MovieItem { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(2000);
+
+        if (Id != null)
+        {
+            int? id = int.Parse(Id);
+
+            MovieItem = await MovieReviewService.GetMovie(id.Value);
+        }
+
+    }
+
+
+}

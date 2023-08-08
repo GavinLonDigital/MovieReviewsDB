@@ -1,0 +1,25 @@
+﻿@using MovieReviews.Models
+
+
+<div class="col-md-3 mb-2">
+    <a href="/MovieReview/@Movie?.Id" style="text-decoration:none">
+        <div class="card">
+            <img class="img-thumbnail" src="@Movie?.ImageUrl">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    @Movie?.Title
+                </h5>
+                <p class="card-text">
+                    <b>@Movie?.Description</b>
+                </p>
+            </div>
+        </div>
+    </a>
+</div>
+
+@code {
+    [Parameter]
+    public Movie? Movie { get; set; }
+
+
+}
